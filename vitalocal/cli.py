@@ -1,8 +1,8 @@
-"""GarminGPT validation CLI.
+"""VitaLocal validation CLI.
 
-    uv run python -m garmingpt login      # one-time: sign in to Garmin (handles MFA)
-    uv run python -m garmingpt sync       # pull ~90 days into local SQLite
-    uv run python -m garmingpt brief      # generate today's morning briefing
+    uv run python -m vitalocal login      # one-time: sign in to Garmin (handles MFA)
+    uv run python -m vitalocal sync       # pull ~90 days into local SQLite
+    uv run python -m vitalocal brief      # generate today's morning briefing
 """
 from __future__ import annotations
 
@@ -44,20 +44,20 @@ def cmd_brief(args: argparse.Namespace) -> int:
 
 def cmd_dashboard(args: argparse.Namespace) -> int:
     dashboard.export(days=args.days)
-    print("Run `uv run python -m garmingpt serve` to open the ML dashboard.")
+    print("Run `uv run python -m vitalocal serve` to open the ML dashboard.")
     return 0
 
 
 def cmd_serve(args: argparse.Namespace) -> int:
     from . import serve
     url = f"http://{args.host}:{args.port}"
-    print(f"GarminGPT ML dashboard → {url}   (Ctrl-C to stop)")
+    print(f"VitaLocal ML dashboard → {url}   (Ctrl-C to stop)")
     serve.main(host=args.host, port=args.port)
     return 0
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(prog="garmingpt", description="GarminGPT — local AI health dashboard")
+    p = argparse.ArgumentParser(prog="vitalocal", description="VitaLocal — local AI health dashboard")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     sub.add_parser("login", help="Sign in to Garmin and save the session").set_defaults(fn=cmd_login)

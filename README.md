@@ -1,14 +1,15 @@
-# GarminGPT 🫀
+# VitaLocal for Garmin 🫀
 
-### Your Garmin data, finally with a brain.
+### Your Garmin data, finally with a coach.
 
-An **AI health coach for your Garmin** that predicts your next 7 days, scores your
+The **open-source, run-it-yourself edition of [VitaLocal](https://getvitalocal.com)** — a
+private AI health coach for your Garmin that predicts your next 7 days, scores your
 **recovery**, catches **overtraining before it happens**, and answers questions about
 your body in plain English — running **100% on your own laptop**.
 
 **No cloud. No subscription. No account.** Your health data never leaves your computer.
 
-![GarminGPT dashboard — recovery score, training-load radar, 7-day forecasts, and an AI that predicts and answers questions about your own data](docs/dashboard.png)
+![VitaLocal dashboard — recovery score, training-load radar, 7-day forecasts, and an AI that predicts and answers questions about your own data](docs/dashboard.png)
 
 > Like the coaching in **Whoop** or **Oura** — but for the watch you already own, for **free**, and **fully private**.
 
@@ -23,7 +24,7 @@ your body in plain English — running **100% on your own laptop**.
 
 *Setup is one step and takes a few minutes — see below. Not medical advice.*
 
-> 📱 **On iPhone?** A native on-device app is coming — reads Apple Health (where Garmin deposits your data) and predicts with Apple's on-device model, no laptop needed. See [getvitalocal.com](https://getvitalocal.com).
+> 📱 **On iPhone?** There's a native **VitaLocal** app coming — it reads Apple Health (where Garmin deposits your data) and predicts with Apple's on-device model, no laptop needed. See [getvitalocal.com](https://getvitalocal.com).
 
 ---
 
@@ -33,7 +34,7 @@ Not techy? No problem. Open the **Claude app** or the **ChatGPT app** on your la
 (get it from claude.ai or chatgpt.com if you don't have it), and **paste this in**:
 
 > I want to run an app on my own laptop but I'm not technical. Here is the code:
-> **https://github.com/RubenHaisma/garmingpt**
+> **https://github.com/RubenHaisma/vitalocal-garmin**
 >
 > Please read its README, then give me the exact steps for **my** operating system,
 > **one at a time**, and wait for me to tell you each one worked before giving the next.
@@ -53,14 +54,14 @@ The AI will hold your hand through the whole thing and fix anything that breaks.
 **Fastest (Mac/Linux):** open **Terminal** and paste this one line:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/RubenHaisma/garmingpt/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/RubenHaisma/vitalocal-garmin/main/install.sh | bash
 ```
 
 **Or double-click** (first download the code: green **Code** button ▸ **Download ZIP** ▸ unzip):
 
 - **Mac:** double-click **`start.command`**
   *(If macOS says "unidentified developer": right-click it → **Open** → **Open**. Only once. If double-click does nothing after a ZIP download, use the one-line command above instead.)*
-- **Windows:** double-click **`Start GarminGPT.bat`**
+- **Windows:** double-click **`Start VitaLocal.bat`**
 
 The first run takes a few minutes (one ~2 GB download), then your browser opens.
 **Sign in to your Garmin on that page** and you're done.
@@ -95,10 +96,10 @@ The end state: the app is serving on `http://127.0.0.1:8800` and they log in via
 
 **What this is:** a Python (managed by `uv`) FastAPI web app that reads the user's Garmin data
 via `python-garminconnect`, computes forecasts + analytics locally, and uses a local **Ollama**
-model for predictions and chat. Entry point: `uv run python -m garmingpt serve` (binds 127.0.0.1:8800).
+model for predictions and chat. Entry point: `uv run python -m vitalocal serve` (binds 127.0.0.1:8800).
 
 **The simplest path is to just run the launcher** — `./start.command` (macOS) or
-`Start GarminGPT.bat` (Windows). It does everything below. Only fall back to manual steps if it fails.
+`Start VitaLocal.bat` (Windows). It does everything below. Only fall back to manual steps if it fails.
 
 **Manual setup (do these in order):**
 
@@ -110,12 +111,12 @@ model for predictions and chat. Entry point: `uv run python -m garmingpt serve` 
 4. **Start Ollama** if it isn't running: `ollama serve` (the macOS app starts it automatically).
 5. **Pull a small model** that fits the machine (≈2 GB): `ollama pull qwen2.5:3b`
    (on a low-RAM machine use `ollama pull llama3.2:1b` instead).
-6. **Run the app:** set `GARMINGPT_MODEL` to the model you pulled, then `uv run python -m garmingpt serve`.
-   e.g. macOS/Linux: `GARMINGPT_MODEL=qwen2.5:3b uv run python -m garmingpt serve`
+6. **Run the app:** set `VITALOCAL_MODEL` to the model you pulled, then `uv run python -m vitalocal serve`.
+   e.g. macOS/Linux: `VITALOCAL_MODEL=qwen2.5:3b uv run python -m vitalocal serve`
 7. Tell the user to open **http://127.0.0.1:8800** and sign in to Garmin there (email + password,
    plus a 2-factor code if prompted). The first data sync takes a minute or two.
 
-**Config / knobs:** `GARMINGPT_MODEL` picks the Ollama model; `OLLAMA_HOST` overrides the Ollama
+**Config / knobs:** `VITALOCAL_MODEL` picks the Ollama model; `OLLAMA_HOST` overrides the Ollama
 URL (default `http://localhost:11434`). No API keys, no cloud, no accounts to create.
 
 **Common issues:**
@@ -132,19 +133,19 @@ URL (default `http://localhost:11434`). No API keys, no cloud, no accounts to cr
 
 ```bash
 uv sync
-uv run python -m garmingpt serve            # dashboard at http://127.0.0.1:8800
+uv run python -m vitalocal serve            # dashboard at http://127.0.0.1:8800
 # other commands:
-uv run python -m garmingpt login            # terminal Garmin login (the web form is easier)
-uv run python -m garmingpt dashboard        # pull data → dashboard_data.json (the app's Sync button does this)
+uv run python -m vitalocal login            # terminal Garmin login (the web form is easier)
+uv run python -m vitalocal dashboard        # pull data → dashboard_data.json (the app's Sync button does this)
 ```
 
 Project layout:
 
 ```
-start.command · Start GarminGPT.bat · install.sh   ← one-click launchers
+start.command · Start VitaLocal.bat · install.sh   ← one-click launchers
 docs/dashboard.png                                 ← README screenshot
-garmingpt/                                          ← the package
-├── __main__.py        → python -m garmingpt …
+vitalocal/                                          ← the package
+├── __main__.py        → python -m vitalocal …
 ├── cli.py             CLI (login / dashboard / serve …)
 ├── garmin_client.py   Garmin auth via garminconnect/curl_cffi (+ web login)
 ├── dashboard.py       pull & normalise Garmin data
@@ -156,6 +157,6 @@ garmingpt/                                          ← the package
 └── legacy/            older morning-briefing validation slice
 ```
 
-Personal data (`dashboard_data.json`, `~/.garmingpt/tokens/`) never leaves the machine and is gitignored.
+Personal data (`dashboard_data.json`, `~/.vitalocal/tokens/`) never leaves the machine and is gitignored.
 
-*Built for personal use with your own watch data. Not medical advice.*
+*Part of [VitaLocal](https://getvitalocal.com). Built for personal use with your own watch data. Not medical advice.*

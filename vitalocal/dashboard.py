@@ -4,7 +4,7 @@
 endpoints (activities, body battery, VO2max, training readiness, …). It reuses
 the *same* saved session `garmin_client.login` already wrote, so no second login.
 
-    uv run python -m garmingpt dashboard            # last 30 days → dashboard_data.json
+    uv run python -m vitalocal dashboard            # last 30 days → dashboard_data.json
 
 Field names vary across Garmin firmware/accounts, so every extraction tries
 several candidate keys and tolerates gaps rather than guessing one name — same

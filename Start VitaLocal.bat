@@ -1,13 +1,13 @@
 @echo off
-REM GarminGPT - one-click setup + launch for Windows.
+REM VitaLocal - one-click setup + launch for Windows.
 REM Double-click this file. First run installs everything (a few minutes).
 REM Keep the window open while using the app. Close it to stop.
 setlocal enableextensions
 cd /d "%~dp0"
-title GarminGPT
+title VitaLocal
 
 echo(
-echo GarminGPT - your private health ML dashboard
+echo VitaLocal - your private health ML dashboard
 echo First run sets everything up. Nothing leaves this computer.
 echo(
 
@@ -63,8 +63,8 @@ if errorlevel 1 ( echo Could not download the model. & pause & exit /b 1 )
 
 REM 4) launch
 echo == Starting your dashboard ==
-set "GARMINGPT_MODEL=%MODEL%"
+set "VITALOCAL_MODEL=%MODEL%"
 start "" http://127.0.0.1:8800
 echo Opening http://127.0.0.1:8800 - sign in to Garmin there.
 echo Keep this window open while using the app. Close it to stop.
-uv run python -m garmingpt serve
+uv run python -m vitalocal serve

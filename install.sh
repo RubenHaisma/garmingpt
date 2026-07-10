@@ -1,20 +1,20 @@
 #!/bin/bash
-# GarminGPT — 0→100 installer for macOS & Linux.
+# VitaLocal — 0→100 installer for macOS & Linux.
 #
 # From a totally fresh machine, open Terminal and paste ONE line:
-#   curl -fsSL https://raw.githubusercontent.com/RubenHaisma/garmingpt/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/RubenHaisma/vitalocal-garmin/main/install.sh | bash
 #
 # It downloads the code, installs uv+Python, installs Ollama, pulls a small AI
 # model, and launches the dashboard. Nothing else needed.
 
 set -u
-REPO="https://github.com/RubenHaisma/garmingpt"
-DIR="${GARMINGPT_DIR:-$HOME/garmingpt}"
+REPO="https://github.com/RubenHaisma/vitalocal-garmin"
+DIR="${VITALOCAL_DIR:-$HOME/vitalocal-garmin}"
 B=$'\033[1m'; D=$'\033[2m'; G=$'\033[32m'; X=$'\033[0m'
-printf "${B}GarminGPT installer${X}\n${D}This sets up everything on your own computer. Nothing is uploaded.${X}\n"
+printf "${B}VitaLocal installer${X}\n${D}This sets up everything on your own computer. Nothing is uploaded.${X}\n"
 
 # 1) get the code (unless we're already inside it)
-if [ -f "./garmingpt/cli.py" ] && [ -f "./start.command" ]; then
+if [ -f "./vitalocal/cli.py" ] && [ -f "./start.command" ]; then
   DIR="$(pwd)"
 elif [ -d "$DIR/.git" ]; then
   printf "${D}Updating existing copy in %s…${X}\n" "$DIR"
@@ -25,8 +25,8 @@ else
     git clone --depth 1 "$REPO" "$DIR" || { echo "Download failed. Check your internet and try again."; exit 1; }
   else
     mkdir -p "$DIR"
-    curl -L --fail "$REPO/archive/refs/heads/main.tar.gz" -o /tmp/garmingpt.tgz || { echo "Download failed."; exit 1; }
-    tar -xzf /tmp/garmingpt.tgz -C "$DIR" --strip-components=1 || { echo "Unpack failed."; exit 1; }
+    curl -L --fail "$REPO/archive/refs/heads/main.tar.gz" -o /tmp/vitalocal.tgz || { echo "Download failed."; exit 1; }
+    tar -xzf /tmp/vitalocal.tgz -C "$DIR" --strip-components=1 || { echo "Unpack failed."; exit 1; }
   fi
 fi
 

@@ -19,11 +19,11 @@ import httpx
 OLLAMA = os.getenv("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
 if not OLLAMA.startswith("http"):
     OLLAMA = "http://" + OLLAMA
-# GARMINGPT_MODEL (set by the one-click installer for tiny machines) wins.
+# VITALOCAL_MODEL (set by the one-click installer for tiny machines) wins.
 # Otherwise pick the best INSTALLED model, quality-first — so a beefy box that has
 # the 14b uses it, while a fresh tiny-machine install (which only has the small
 # model the installer pulled) falls through to it automatically.
-PREFERRED = [m for m in [os.getenv("GARMINGPT_MODEL")] if m] + [
+PREFERRED = [m for m in [os.getenv("VITALOCAL_MODEL")] if m] + [
     "qwen2.5:14b-instruct", "llama3.2:3b", "qwen2.5:3b", "qwen2.5:3b-instruct",
     "granite4.1:3b", "llama3.2:1b",
 ]

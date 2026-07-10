@@ -1,6 +1,6 @@
-"""Local server for the GarminGPT ML dashboard.
+"""Local server for the VitaLocal ML dashboard.
 
-    uv run python -m garmingpt serve            # http://127.0.0.1:8800
+    uv run python -m vitalocal serve            # http://127.0.0.1:8800
 
 Serves the dashboard and a small JSON/stream API. All data is the user's real
 Garmin export (dashboard_data.json); if it's missing every endpoint reports
@@ -22,7 +22,7 @@ HERE = Path(__file__).parent
 DATA = HERE / "dashboard_data.json"
 INDEX = HERE / "static" / "index.html"
 
-app = FastAPI(title="GarminGPT ML Dashboard")
+app = FastAPI(title="VitaLocal ML Dashboard")
 
 
 def _load() -> dict | None:

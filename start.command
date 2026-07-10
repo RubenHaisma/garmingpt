@@ -1,5 +1,5 @@
 #!/bin/bash
-# GarminGPT — one-click setup + launch for macOS.
+# VitaLocal — one-click setup + launch for macOS.
 # Just double-click this file. The first run installs everything (a few minutes);
 # after that it opens instantly. Keep the window open while you use the app.
 
@@ -11,12 +11,12 @@ ok(){ printf "${G}  ✓ %s${X}\n" "$*"; }
 die(){ printf "\n${R}✗ %s${X}\n\n${Y}Stuck? Open the Claude or ChatGPT app, paste this whole folder's\nREADME, and say \"help me get this running on my Mac\". It will walk you through it.${X}\n\n"; printf "Press any key to close…"; read -r -n1; exit 1; }
 
 clear
-printf "${B}GarminGPT · your private health ML dashboard${X}\n"
+printf "${B}VitaLocal · your private health ML dashboard${X}\n"
 printf "${D}First run sets everything up. Nothing leaves this computer.${X}\n"
 
 # choose a model that fits this machine's memory
 RAM=$(( $(sysctl -n hw.memsize 2>/dev/null || echo 8000000000) / 1073741824 ))
-MODEL="${GARMINGPT_MODEL:-qwen2.5:3b}"
+MODEL="${VITALOCAL_MODEL:-qwen2.5:3b}"
 if [ "$RAM" -lt 6 ]; then MODEL="llama3.2:1b"; fi
 printf "${D}~%sGB RAM detected → AI model: %s${X}\n" "$RAM" "$MODEL"
 
@@ -71,8 +71,8 @@ fi
 
 # 4) launch
 step "Starting your dashboard"
-export GARMINGPT_MODEL="$MODEL"
+export VITALOCAL_MODEL="$MODEL"
 ( sleep 3; open "http://127.0.0.1:8800" >/dev/null 2>&1 ) &
 printf "${G}Opening http://127.0.0.1:8800 in your browser.${X}\n"
 printf "${D}Sign in to Garmin on that page. Keep THIS window open while using the app — close it to stop.${X}\n\n"
-uv run python -m garmingpt serve
+uv run python -m vitalocal serve

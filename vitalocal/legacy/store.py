@@ -5,7 +5,7 @@ import json
 import sqlite3
 from pathlib import Path
 
-DB = Path.home() / ".garmingpt" / "garmin.db"
+DB = Path.home() / ".vitalocal" / "garmin.db"
 
 
 def _conn() -> sqlite3.Connection:

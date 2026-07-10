@@ -26,7 +26,7 @@ try:
 except Exception:  # noqa: BLE001 — older/newer layouts
     GarminConnectAuthenticationError = Exception  # type: ignore
 
-SESSION_DIR = Path.home() / ".garmingpt" / "tokens"
+SESSION_DIR = Path.home() / ".vitalocal" / "tokens"
 
 
 def _prompt_mfa() -> str:

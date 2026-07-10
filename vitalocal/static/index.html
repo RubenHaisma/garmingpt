@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GarminGPT — ML Health Dashboard</title>
+<title>VitaLocal — ML Health Dashboard</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   :root {
@@ -196,7 +196,7 @@
   <div class="head">
     <div>
       <div class="eyebrow"><span class="pulse"></span> <span id="span-label">ML health telemetry</span></div>
-      <h1 id="who">GarminGPT</h1>
+      <h1 id="who">VitaLocal</h1>
     </div>
     <div class="head-right">
       <div class="pills">
@@ -214,7 +214,7 @@
   <div id="content"></div>
 
   <div class="foot">
-    <span>GarminGPT &middot; local ML dashboard &middot; python-garminconnect + Ollama</span>
+    <span>VitaLocal &middot; local ML dashboard &middot; python-garminconnect + Ollama</span>
     <span>your data &mdash; never leaves this machine</span>
   </div>
 </div>
@@ -339,7 +339,7 @@ async function loadData(){
   const content=$("#content"); let res;
   try{ res=await (await fetch("/api/data")).json(); }
   catch(e){ content.innerHTML=`<div class="empty empty-hero">Could not reach the server.</div>`; return; }
-  if(res.empty){ content.innerHTML=`<div class="empty empty-hero">No Garmin data yet.<br><br>Pull it with <code>uv run python -m garmingpt dashboard</code><br>or press <b>↻ Sync</b>. Nothing is shown until real data exists.</div>`; return; }
+  if(res.empty){ content.innerHTML=`<div class="empty empty-hero">No Garmin data yet.<br><br>Pull it with <code>uv run python -m vitalocal dashboard</code><br>or press <b>↻ Sync</b>. Nothing is shown until real data exists.</div>`; return; }
 
   const {data,analysis,analytics}=res; window.__CTX={data,analysis,analytics}; window.__CHARTS=[];
   showHeaderBtns(true);
